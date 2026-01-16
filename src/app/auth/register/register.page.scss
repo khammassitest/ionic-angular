@@ -1,0 +1,38 @@
+.header-section {
+  text-align: center;
+  margin-bottom: 30px;
+
+  .logo-circle {
+    background: var(--ion-color-primary);
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 15px;
+    
+    ion-icon {
+      color: white;
+      font-size: 30px;
+    }
+  }
+
+  p {
+    color: #888;
+    font-size: 0.9rem;
+  }
+}
+
+ion-item {
+  ion-icon {
+    margin-top: 20px; 
+    color: var(--ion-color-primary);
+    font-size: 1.2rem;
+  }
+}
+
+.main-btn {
+  --background: var(--ion-color-primary);
+  --box-shadow: 0 4px 15px rgba(var(--ion-color-primary-rgb), 0.4);
+}

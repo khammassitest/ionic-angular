@@ -1,0 +1,33 @@
+<ion-content class="ion-padding">
+  <div class="login-container">
+    <div class="header-icon">
+      <ion-icon name="lock-closed-outline" color="primary"></ion-icon>
+      <h2>Bienvenue</h2>
+      <p>Connectez-vous Smart Parking</p>
+    </div>
+
+    <ion-item lines="none">
+      <ion-icon name="mail-outline" slot="start"></ion-icon>
+      <ion-input [(ngModel)]="email" name="email" type="email" placeholder="Email"></ion-input>
+    </ion-item>
+
+    <ion-item lines="none">
+      <ion-icon name="key-outline" slot="start"></ion-icon>
+      <ion-input [(ngModel)]="password" name="password" type="password" placeholder="Mot de passe"></ion-input>
+    </ion-item>
+
+    <div class="forgot-password">
+      <a (click)="forgotPassword()">Mot de passe oublié ?</a>
+    </div>
+
+    <ion-button expand="block" (click)="login()">SE CONNECTER</ion-button>
+
+    <div class="error-message" *ngIf="error">
+      {{ error }}
+    </div>
+
+    <p class="register-link">
+      Vous n'avez pas de compte ? <span (click)="goToRegister()">Inscrivez-vous</span>
+    </p>
+  </div>
+</ion-content>
