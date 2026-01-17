@@ -28,15 +28,15 @@ export const routes: Routes = [
   },
   {
     path: 'dashboard',
-    loadComponent: () => import('./manager/dashboard/dashboard.page').then( m => m.DashboardPage)
+    loadComponent: () => import('./manager/dashboard/dashboard.page').then(m => m.DashboardPage)
   },
   {
     path: 'manage-parking',
-    loadComponent: () => import('./manager/manage-parking/manage-parking.page').then( m => m.ManageParkingPage)
+    loadComponent: () => import('./manager/manage-parking/manage-parking.page').then(m => m.ManageParkingPage)
   },
   {
     path: 'manage-spots',
-    loadComponent: () => import('./manager/manage-spots/manage-spots.page').then( m => m.ManageSpotsPage)
-  },
+    loadComponent: () => import('./manager/manage-spots/manage-spots.page').then(m => m.ManageSpotsPage)
+  }
 
 ];

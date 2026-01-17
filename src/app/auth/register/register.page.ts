@@ -39,11 +39,11 @@ export class RegisterPage {
   async register() {
     if (this.email && this.password && this.name) {
       try {
-        await this.authService.register(
-          this.email, 
-          this.password, 
-          this.role, 
-          this.name, 
+        this.authService.register(
+          this.email,
+          this.password,
+          this.role,
+          this.name,
           this.phone
         );
         

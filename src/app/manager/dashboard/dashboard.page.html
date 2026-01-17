@@ -1,13 +1,62 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>dashboard</ion-title>
+<ion-header class="ion-no-border">
+  <ion-toolbar color="primary">
+    <ion-title>Manager Dashboard</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="logout()">
+        <ion-icon slot="icon-only" name="log-out-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">dashboard</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content [fullscreen]="true" class="ion-padding">
+  <div class="welcome-section">
+    <h1>Bienvenue, <span>Manager</span></h1>
+    <p>Voici l'état de votre parking aujourd'hui</p>
+  </div>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col size="6">
+        <ion-card class="stat-card total">
+          <ion-card-content>
+            <ion-icon name="stats-chart-outline"></ion-icon>
+            <h2>120</h2>
+            <p>Total Spots</p>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <ion-col size="6">
+        <ion-card class="stat-card occupied">
+          <ion-card-content>
+            <ion-icon name="car-outline"></ion-icon>
+            <h2>45</h2>
+            <p>Occupés</p>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <div class="action-section">
+    <h3 class="section-title">Gestion Principale</h3>
+    
+    <ion-item lines="none" class="action-item" (click)="goToManageParking()">
+      <ion-icon slot="start" name="business-outline" color="primary"></ion-icon>
+      <ion-label>
+        <h2>Gestion des Parkings</h2>
+        <p>Modifier ou ajouter des zones</p>
+      </ion-label>
+      <ion-icon slot="end" name="chevron-forward-outline"></ion-icon>
+    </ion-item>
+
+    <ion-item lines="none" class="action-item" (click)="goToManageSpots()">
+      <ion-icon slot="start" name="car-sport-outline" color="success"></ion-icon>
+      <ion-label>
+        <h2>Gestion des Places (Spots)</h2>
+        <p>Suivi en temps réel des places</p>
+      </ion-label>
+      <ion-icon slot="end" name="chevron-forward-outline"></ion-icon>
+    </ion-item>
+  </div>
 </ion-content>

@@ -37,11 +37,11 @@ export class LoginPage {
       const userData: any = await this.authService.login(this.email, this.password);
       
       if (userData && userData.role) {
-        console.log('Connexion réussie !');
+        console.log('Connexion réussie ! Role:', userData.role);
         if (userData.role === 'DRIVER') {
-          this.router.navigate(['/home']);
-        } else {
-          this.router.navigate(['/admin']);
+          this.router.navigate(['/parking-list']);
+        } else if (userData.role === 'MANAGER') {
+          this.router.navigate(['/dashboard']);
         }
       }
     } catch (err: any) {
