@@ -1,20 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar } from '@ionic/angular/standalone';
+import { IonicModule } from '@ionic/angular';
 
 @Component({
   selector: 'app-manage-spots',
   templateUrl: './manage-spots.page.html',
   styleUrls: ['./manage-spots.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule]
+  imports: [IonicModule, CommonModule]
 })
-export class ManageSpotsPage implements OnInit {
-
-  constructor() { }
-
-  ngOnInit() {
-  }
-
+export class ManageSpotsPage {
+  spots = [
+    { id: 'A1', status: 0 }, { id: 'A2', status: 1 }, { id: 'A3', status: 0 },
+    { id: 'A4', status: 0 }, { id: 'A5', status: 1 }, { id: 'A6', status: 1 },
+    { id: 'A7', status: 0 }, { id: 'A8', status: 0 }, { id: 'A9', status: 0 }
+  ];
 }

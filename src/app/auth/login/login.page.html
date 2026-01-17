@@ -6,21 +6,21 @@
       <p>Connectez-vous Smart Parking</p>
     </div>
 
-    <ion-item lines="none">
+    <ion-item lines="none" class="input-item">
       <ion-icon name="mail-outline" slot="start"></ion-icon>
       <ion-input [(ngModel)]="email" name="email" type="email" placeholder="Email"></ion-input>
     </ion-item>
 
-    <ion-item lines="none">
+    <ion-item lines="none" class="input-item">
       <ion-icon name="key-outline" slot="start"></ion-icon>
       <ion-input [(ngModel)]="password" name="password" type="password" placeholder="Mot de passe"></ion-input>
     </ion-item>
 
     <div class="forgot-password">
-      <a (click)="forgotPassword()">Mot de passe oublié ?</a>
+      <a (click)="error = 'Fonctionnalité bientôt disponible'">Mot de passe oublié ?</a>
     </div>
 
-    <ion-button expand="block" (click)="login()">SE CONNECTER</ion-button>
+    <ion-button expand="block" (click)="login()" class="login-btn">SE CONNECTER</ion-button>
 
     <div class="error-message" *ngIf="error">
       {{ error }}

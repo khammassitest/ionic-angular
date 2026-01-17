@@ -1,20 +1,42 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar } from '@ionic/angular/standalone';
+import { IonicModule } from '@ionic/angular';
+import { Router, RouterModule } from '@angular/router'; 
+import { addIcons } from 'ionicons';
+import { logOutOutline, businessOutline, carSportOutline, statsChartOutline, carOutline, chevronForwardOutline } from 'ionicons/icons';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.page.html',
   styleUrls: ['./dashboard.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule]
+  imports: [IonicModule, CommonModule, FormsModule, RouterModule]
 })
 export class DashboardPage implements OnInit {
 
-  constructor() { }
-
-  ngOnInit() {
+  constructor(private router: Router) { 
+    addIcons({ 
+      'car-outline': carOutline,
+      'stats-chart-outline': statsChartOutline,
+      'business-outline': businessOutline,
+      'log-out-outline': logOutOutline,
+      'chevron-forward-outline': chevronForwardOutline,
+      'car-sport-outline': carSportOutline
+    });
   }
 
+  ngOnInit() {}
+
+  logout() {
+    this.router.navigate(['/login']);
+  }
+
+  goToManageParking() {
+    this.router.navigate(['/manage-parking']);
+  }
+
+  goToManageSpots() {
+    this.router.navigate(['/manage-spots']);
+  }
 }
