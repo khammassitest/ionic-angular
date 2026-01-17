@@ -1,39 +1,51 @@
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, inject } from '@angular/core';
+import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../services/auth';
-import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonLabel, IonItem, IonButton, IonInput, IonIcon } from '@ionic/angular/standalone';
-import { addIcons } from 'ionicons'; 
-import { mailOutline, keyOutline, lockClosedOutline } from 'ionicons/icons';
+import { CommonModule } from '@angular/common';
+import { 
+  IonContent, IonItem, IonButton, IonInput, IonIcon 
+} from '@ionic/angular/standalone';
+import { addIcons } from 'ionicons';
+import { mailOutline, lockClosedOutline, keyOutline } from 'ionicons/icons';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonLabel, IonItem, IonButton, IonInput, IonIcon],
-  providers: [AuthService]
+  imports: [
+    IonContent, IonItem, IonButton, IonInput, IonIcon, 
+    FormsModule, CommonModule, RouterModule
+  ]
 })
 export class LoginPage {
   email = '';
   password = '';
   error = '';
 
-  constructor(private authService: AuthService, private router: Router) {
-    addIcons({ mailOutline, keyOutline, lockClosedOutline });
+  private authService = inject(AuthService);
+  private router = inject(Router);
+
+  constructor() {
+    addIcons({ mailOutline, lockClosedOutline, keyOutline });
   }
 
-  login() {
-    if (this.authService.login(this.email, this.password)) {
-      const role = this.authService.getRole();
-      if (role === 'DRIVER') {
-        this.router.navigate(['/driver/parking-list']);
-      } else {
-        this.router.navigate(['/manager/dashboard']);
+  async login() {
+    this.error = '';
+    try {
+      const userData: any = await this.authService.login(this.email, this.password);
+      
+      if (userData && userData.role) {
+        console.log('Connexion réussie !');
+        if (userData.role === 'DRIVER') {
+          this.router.navigate(['/home']);
+        } else {
+          this.router.navigate(['/admin']);
+        }
       }
-    } else {
-      this.error = 'Email ou mot de passe incorrect';
+    } catch (err: any) {
+      this.error = "Email ou mot de passe incorrect";
     }
   }
 
@@ -42,6 +54,6 @@ export class LoginPage {
   }
 
   forgotPassword() {
-    console.log('Forgot password clicked');
+    console.log('Mot de passe oublié');
   }
 }

@@ -1,42 +1,50 @@
 import { Injectable } from '@angular/core';
-import { User } from '../models/user.model';
+import { Auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, authState } from '@angular/fire/auth';
+import { Firestore, doc, setDoc, getDoc } from '@angular/fire/firestore';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  register(email: string, password: string, role: string) {
-    localStorage.setItem('user', JSON.stringify({ email, role }));
-    console.log('User registered:', email, role);
-  }
-  currentUser: User | null = null;
+  
+  constructor(private auth: Auth, private firestore: Firestore) {}
 
+  async register(email: string, password: string, role: string, name: string, phone: string) {
+    try {
+      const userCredential = await createUserWithEmailAndPassword(this.auth, email, password);
+      const uid = userCredential.user.uid;
 
-  users: User[] = [
-    { uid: '1', email: 'driver@test.com', password: '123', role: 'DRIVER' },
-    { uid: '2', email: 'manager@test.com', password: '123', role: 'MANAGER' }
-  ];
+      await setDoc(doc(this.firestore, 'users', uid), {
+        uid,
+        email,
+        role,
+        name,
+        phone,
+        createdAt: new Date()
+      });
 
-  constructor() {}
-
-  login(email: string, password: string): boolean {
-    const user = this.users.find(u => u.email === email && u.password === password);
-    if (user) {
-      this.currentUser = user;
-      return true;
+      console.log('User registered in Firebase:', email);
+      return userCredential;
+    } catch (error) {
+      throw error;
     }
-    return false;
+  }
+
+  async login(email: string, password: string) {
+    try {
+      const userCredential = await signInWithEmailAndPassword(this.auth, email, password);
+      const userDoc = await getDoc(doc(this.firestore, 'users', userCredential.user.uid));
+      return userDoc.data();
+    } catch (error) {
+      throw error;
+    }
   }
 
   logout() {
-    this.currentUser = null;
+    return signOut(this.auth);
   }
-
-  isAuthenticated(): boolean {
-    return this.currentUser !== null;
-  }
-
-  getRole(): 'DRIVER' | 'MANAGER' | null {
-    return this.currentUser?.role || null;
+  getAuthState(): Observable<any> {
+    return authState(this.auth);
   }
 }

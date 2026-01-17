@@ -8,7 +8,7 @@ import {
   IonSelect, IonSelectOption, IonIcon 
 } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';  
-import { personOutline, mailOutline, lockClosedOutline, callOutline } from 'ionicons/icons';
+import { personOutline, mailOutline, lockClosedOutline, callOutline, keyOutline } from 'ionicons/icons';
 
 @Component({
   selector: 'app-register',
@@ -29,21 +29,32 @@ export class RegisterPage {
   error = '';
 
   constructor(private authService: AuthService, private router: Router) {
-     
-    addIcons({ personOutline, mailOutline, lockClosedOutline, callOutline });
+    addIcons({ personOutline, mailOutline, lockClosedOutline, callOutline, keyOutline });
   }
 
-   
   goToLogin() {
     this.router.navigate(['/login']);
   }
 
-  register() {
+  async register() {
     if (this.email && this.password && this.name) {
-      this.authService.register(this.email, this.password, this.role);
-      this.router.navigate(['/login']); 
+      try {
+        await this.authService.register(
+          this.email, 
+          this.password, 
+          this.role, 
+          this.name, 
+          this.phone
+        );
+        
+        console.log('Inscription réussie !');
+        this.router.navigate(['/login']); 
+      } catch (err: any) {
+        console.error(err);
+        this.error = "Erreur d'inscription: " + err.message;
+      }
     } else {
-      this.error = 'Veuillez remplir tous les champs obligatoires';
+      this.error = 'Veuillez remplir tous les champs obligatoires (Nom, Email, Mot de passe)';
     }
   }
 }
