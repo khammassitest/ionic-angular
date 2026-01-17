@@ -1,16 +1,24 @@
-// This file can be replaced during build by using the `fileReplacements` array.
-// `ng build` replaces `environment.ts` with `environment.prod.ts`.
-// The list of file replacements can be found in `angular.json`.
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
 
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 export const environment = {
-  production: false
+  production: false,
+  firebaseConfig: {
+    apiKey: "AIzaSyAMXrpFFTESfOXq3sdPMgn-DLeqj9fHZ78",
+    authDomain: "ionic-95e2a.firebaseapp.com",
+    projectId: "ionic-95e2a",
+    storageBucket: "ionic-95e2a.firebasestorage.app",
+    messagingSenderId: "535213025237",
+    appId: "1:535213025237:web:e8a02123c972c52a96ff5c",
+    measurementId: "G-WMV3CWCS9N"
+  }
 };
 
-/*
- * For easier debugging in development mode, you can import the following file
- * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.
- *
- * This import should be commented out in production mode because it will have a negative impact
- * on performance if an error is thrown.
- */
-// import 'zone.js/plugins/zone-error';  // Included with Angular CLI.
+// // Initialize Firebase
+// const app = initializeApp(environment);
+// const analytics = getAnalytics(app);
