@@ -1,22 +1,20 @@
 import { Injectable } from '@angular/core';
-import { Parking } from '../models/parking.model';
+import { Firestore, collection, collectionData, doc, docData } from '@angular/fire/firestore';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ParkingService {
-  parkings: Parking[] = [
-    { id: 'p1', name: 'Parking Centre Ville', location: 'Tunis', totalSpots: 50, availableSpots: 20 },
-    { id: 'p2', name: 'Parking Mall', location: 'Tunis', totalSpots: 30, availableSpots: 10 }
-  ];
+  constructor(private firestore: Firestore) {}
 
-  constructor() {}
-
-  getParkings(): Parking[] {
-    return this.parkings;
+  getParkings(): Observable<any[]> {
+    const parkingCollection = collection(this.firestore, 'parkings');
+    return collectionData(parkingCollection, { idField: 'id' });
   }
 
-  getParkingById(id: string): Parking | undefined {
-    return this.parkings.find(p => p.id === id);
+  getParkingById(id: string): Observable<any> {
+    const parkingDoc = doc(this.firestore, `parkings/${id}`);
+    return docData(parkingDoc, { idField: 'id' });
   }
 }
