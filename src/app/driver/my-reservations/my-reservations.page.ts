@@ -1,20 +1,28 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar } from '@ionic/angular/standalone';
+import { IonicModule } from '@ionic/angular';
+import { Auth, user } from '@angular/fire/auth';
+import { Firestore, collection, query, where, collectionData } from '@angular/fire/firestore';
+import { Observable, of } from 'rxjs';
 
 @Component({
   selector: 'app-my-reservations',
   templateUrl: './my-reservations.page.html',
   styleUrls: ['./my-reservations.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule]
+  imports: [CommonModule, IonicModule]
 })
 export class MyReservationsPage implements OnInit {
-
-  constructor() { }
+  private auth = inject(Auth);
+  private firestore = inject(Firestore);
+  res$: Observable<any[]> = of([]);
 
   ngOnInit() {
+    user(this.auth).subscribe(u => {
+      if (u) {
+        const q = query(collection(this.firestore, 'reservations'), where('driverId', '==', u.uid));
+        this.res$ = collectionData(q);
+      }
+    });
   }
-
 }

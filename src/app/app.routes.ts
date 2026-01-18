@@ -19,7 +19,7 @@ export const routes: Routes = [
     loadComponent: () => import('./driver/parking-list/parking-list.page').then( m => m.ParkingListPage)
   },
   {
-    path: 'parking-details',
+    path: 'parking-details/:id',
     loadComponent: () => import('./driver/parking-details/parking-details.page').then( m => m.ParkingDetailsPage)
   },
   {
