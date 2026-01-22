@@ -1,36 +1,82 @@
-<ion-header>
+<ion-header class="ion-no-border">
   <ion-toolbar color="primary">
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/dashboard"></ion-back-button>
     </ion-buttons>
-    <ion-title>Mes Parkings</ion-title>
+    <ion-title>Gestion Administrative</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <ion-list>
-    <ion-item-sliding *ngFor="let p of parkings">
-      <ion-item>
-        <ion-label>
-          <h2>{{ p.name }}</h2>
-          <p><ion-icon name="location-outline"></ion-icon> {{ p.location }}</p>
-          <p>Prix: <b>{{ p.price }}</b></p>
-        </ion-label>
-        <ion-button slot="end" fill="clear">
-          <ion-icon name="create-outline"></ion-icon>
-        </ion-button>
-      </ion-item>
+<ion-content class="manage-bg">
+  <div class="admin-wrapper ion-padding">
+    
+    <ion-grid class="table-header ion-hide-sm-down">
+      <ion-row>
+        <ion-col size="4">Parking</ion-col>
+        <ion-col size="2">Ville</ion-col>
+        <ion-col size="2">Prix</ion-col>
+        <ion-col size="2">Statut</ion-col>
+        <ion-col size="2" class="ion-text-right">Actions</ion-col>
+      </ion-row>
+    </ion-grid>
 
-      <ion-item-options side="end">
-        <ion-item-option color="danger">
-          <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
-        </ion-item-option>
-      </ion-item-options>
-    </ion-item-sliding>
-  </ion-list>
+    <div *ngIf="parkings$ | async as parkings; else loading">
+      <ion-grid class="table-row" *ngFor="let p of parkings">
+        <ion-row class="ion-align-items-center">
+          
+          <ion-col size="12" size-sm="4">
+            <div class="parking-cell">
+              <ion-avatar>
+                <img src="https://images.unsplash.com/photo-1506521781263-d8422e82f27a?q=80&w=100" />
+              </ion-avatar>
+              <div class="text-group">
+                <span class="name">{{ p.nom }}</span>
+                <ion-note class="ion-hide-sm-up">{{ p.ville }}</ion-note>
+              </div>
+            </div>
+          </ion-col>
+
+          <ion-col size="6" size-sm="2" class="ion-hide-sm-down">
+            <ion-text color="medium">{{ p.ville }}</ion-text>
+          </ion-col>
+
+          <ion-col size="6" size-sm="2">
+            <ion-text color="dark"><strong>{{ p.prix }} DT/h</strong></ion-text>
+          </ion-col>
+
+          <ion-col size="6" size-sm="2">
+            <div class="status-pill" [ngClass]="p.places > 0 ? 'available' : 'full'">
+              <span>{{ p.places > 0 ? 'Disponible' : 'Complet' }}</span>
+            </div>
+          </ion-col>
+
+          <ion-col size="6" size-sm="2" class="ion-text-right">
+            <ion-button fill="clear" (click)="editParking(p.id)">
+              <ion-icon slot="icon-only" name="create-outline"></ion-icon>
+            </ion-button>
+            <ion-button fill="clear" color="danger" (click)="deleteParking(p.id!)">
+              <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+            </ion-button>
+          </ion-col>
+
+        </ion-row>
+      </ion-grid>
+
+      <div *ngIf="parkings.length === 0" class="empty-state ion-text-center ion-padding">
+        <ion-icon name="location-outline" color="medium"></ion-icon>
+        <p>Aucun parking trouvé.</p>
+      </div>
+    </div>
+
+    <ng-template #loading>
+      <div class="ion-text-center ion-padding">
+        <ion-spinner name="crescent"></ion-spinner>
+      </div>
+    </ng-template>
+  </div>
 
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button>
+    <ion-fab-button (click)="editParking()">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>
