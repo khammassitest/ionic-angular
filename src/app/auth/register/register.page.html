@@ -1,49 +1,59 @@
-<ion-content class="ion-padding">
-  <div class="login-container">
-    <div class="header-section">
-      <div class="logo-circle">
-        <ion-icon name="lock-closed-outline"></ion-icon>
+<ion-content>
+  <div class="main-wrapper">
+    <div class="register-card">
+      
+      <div class="header-section">
+        <div class="logo-container">
+          <ion-icon name="lock-closed-outline"></ion-icon>
+        </div>
+        <h1>Bienvenue</h1>
+        <p>Rejoignez Smart Parking dès aujourd'hui</p>
       </div>
-      <h2>Créer un compte</h2>
-      <p>Rejoignez Smart Parking dès aujourd'hui</p>
+
+      <div class="form-container">
+        <ion-item lines="none" class="custom-input">
+          <ion-icon name="person-outline" slot="start"></ion-icon>
+          <ion-input [(ngModel)]="name" type="text" placeholder="Nom et Prénom"></ion-input>
+        </ion-item>
+
+        <ion-item lines="none" class="custom-input">
+          <ion-icon name="call-outline" slot="start"></ion-icon>
+          <ion-input [(ngModel)]="phone" type="tel" placeholder="-- --- ---"></ion-input>
+        </ion-item>
+
+        <ion-item lines="none" class="custom-input">
+          <ion-icon name="mail-outline" slot="start"></ion-icon>
+          <ion-input [(ngModel)]="email" type="email" placeholder="Email"></ion-input>
+        </ion-item>
+
+        <ion-item lines="none" class="custom-input">
+          <ion-icon name="lock-closed-outline" slot="start"></ion-icon>
+          <ion-input [(ngModel)]="password" type="password" placeholder="********"></ion-input>
+        </ion-item>
+
+        <div class="role-section">
+          <p class="label-text">Vous êtes ?</p>
+          <ion-item lines="none" class="custom-input">
+            <ion-select [(ngModel)]="role" interface="popover" toggleIcon="chevron-down-outline">
+              <ion-select-option value="DRIVER">🚗 Conducteur</ion-select-option>
+              <ion-select-option value="MANAGER">🏢 Gestionnaire</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </div>
+
+        <ion-button expand="block" (click)="register()" class="main-btn">
+          S'INSCRIRE
+        </ion-button>
+
+        <div class="error-message" *ngIf="error">
+          {{ error }}
+        </div>
+      </div>
+
+      <div class="footer-section">
+        <p>Déjà inscrit ? <a (click)="goToLogin()">Se connecter</a></p>
+      </div>
+
     </div>
-    
-    <ion-item lines="none">
-      <ion-icon name="person-outline" slot="start"></ion-icon>
-      <ion-input [(ngModel)]="name" name="name" type="text" placeholder="Nom et Prénom"></ion-input>
-    </ion-item>
-
-    <ion-item lines="none">
-      <ion-icon name="call-outline" slot="start"></ion-icon>
-      <ion-input [(ngModel)]="phone" name="phone" type="tel" placeholder="-- --- ---"></ion-input>
-    </ion-item>
-
-    <ion-item lines="none">
-      <ion-icon name="mail-outline" slot="start"></ion-icon>
-      <ion-input [(ngModel)]="email" name="email" type="email" placeholder="Email"></ion-input>
-    </ion-item>
-
-    <ion-item lines="none">
-      <ion-icon name="lock-closed-outline" slot="start"></ion-icon>
-      <ion-input [(ngModel)]="password" name="password" type="password" placeholder="********"></ion-input>
-    </ion-item>
-
-    <ion-item lines="none" class="role-selection">
-      <ion-label position="stacked">Vous êtes ?</ion-label>
-      <ion-select [(ngModel)]="role" name="role" interface="popover">
-        <ion-select-option value="DRIVER">🚗 Conducteur</ion-select-option>
-        <ion-select-option value="MANAGER">🏢 Gestionnaire</ion-select-option>
-      </ion-select>
-    </ion-item>
-
-    <ion-button expand="block" (click)="register()" class="main-btn">S'INSCRIRE</ion-button>
-
-    <div class="error-message" *ngIf="error">
-      {{ error }}
-    </div>
-
-    <p class="login-text">
-        Déjà inscrit ? <a (click)="goToLogin()">Se connecter</a>
-      </p>
   </div>
 </ion-content>

@@ -34,9 +34,9 @@ export const routes: Routes = [
     path: 'manage-parking',
     loadComponent: () => import('./manager/manage-parking/manage-parking.page').then(m => m.ManageParkingPage)
   },
-  {
-    path: 'manage-spots',
-    loadComponent: () => import('./manager/manage-spots/manage-spots.page').then(m => m.ManageSpotsPage)
-  }
+  // {
+  //   path: 'manage-spots',
+  //   loadComponent: () => import('./manager/manage-spots/manage-spots.page').then(m => m.ManageSpotsPage)
+  // }
 
 ];
