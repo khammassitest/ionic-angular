@@ -1,23 +1,59 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { IonicModule } from '@ionic/angular';
+import { Observable } from 'rxjs';
+import { Parking, ParkingService } from '../../services/parking'; 
+import { 
+  IonHeader, IonToolbar, IonButtons, IonBackButton, IonTitle, IonContent,
+  IonGrid, IonRow, IonCol, IonButton, IonIcon, IonFab, IonFabButton,
+  IonSpinner, IonAvatar, IonNote, IonText 
+} from '@ionic/angular/standalone';
+
 import { addIcons } from 'ionicons';
-import { add, locationOutline, trashOutline, createOutline } from 'ionicons/icons';
+import { 
+  add, locationSharp, trashOutline, createOutline, 
+  cashOutline, timeOutline, checkmarkCircle, alertCircle, locationOutline 
+} from 'ionicons/icons';
 
 @Component({
   selector: 'app-manage-parking',
   templateUrl: './manage-parking.page.html',
   styleUrls: ['./manage-parking.page.scss'],
   standalone: true,
-  imports: [IonicModule, CommonModule]
+  imports: [
+    CommonModule, 
+    IonHeader, IonToolbar, IonButtons, IonBackButton, IonTitle, IonContent,
+    IonGrid, IonRow, IonCol, IonButton, IonIcon, IonFab, IonFabButton,
+    IonSpinner, IonAvatar, IonNote, IonText
+  ]
 })
+
 export class ManageParkingPage {
-  parkings = [
-    { id: 1, name: 'Parking Sidi Bou Said', price: '2.0 DT/h', location: 'Tunis' },
-    { id: 2, name: 'Parking Marsa Center', price: '1.5 DT/h', location: 'La Marsa' }
-  ];
+  private parkingService = inject(ParkingService);
+  parkings$: Observable<Parking[]>;
 
   constructor() {
-    addIcons({ add, locationOutline, trashOutline, createOutline });
+    addIcons({
+      locationOutline, locationSharp, cashOutline, timeOutline, 
+      createOutline, trashOutline, add, checkmarkCircle, alertCircle
+    });
+    this.parkings$ = this.parkingService.getParkings();
+  }
+
+  editParking(id?: string) {
+    console.log('Navigation vers modification:', id || 'Nouveau Parking');
+  }
+
+  async deleteParking(id: string) {
+    if (confirm('Voulez-vous vraiment supprimer ce parking ?')) {
+      try {
+        await this.parkingService.deleteParking(id);
+      } catch (error) {
+        console.error('Erreur lors de la suppression:', error);
+      }
+    }
+  }
+
+  viewParking(id: string) {
+    console.log('Voir détails:', id);
   }
 }

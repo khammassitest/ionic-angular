@@ -1,20 +1,51 @@
 import { Injectable } from '@angular/core';
-import { Firestore, collection, collectionData, doc, docData } from '@angular/fire/firestore';
+import { Firestore, collection, collectionData, doc, docData, addDoc, updateDoc, deleteDoc } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
+
+export interface Parking {
+  id?: string;
+  nom: string;
+  description: string;
+  prix: number;
+  places: number;
+  codePostal: number;
+  ville: string;
+  dateOpen: string;
+  dateClose: string;
+  statut: string;
+}
 
 @Injectable({
   providedIn: 'root'
 })
 export class ParkingService {
+
+  private collectionName = 'parkings';
+
   constructor(private firestore: Firestore) {}
 
-  getParkings(): Observable<any[]> {
-    const parkingCollection = collection(this.firestore, 'parkings');
-    return collectionData(parkingCollection, { idField: 'id' });
+  getParkings(): Observable<Parking[]> {
+    const parkingCollection = collection(this.firestore, this.collectionName);
+    return collectionData(parkingCollection, { idField: 'id' }) as Observable<Parking[]>;
   }
 
-  getParkingById(id: string): Observable<any> {
-    const parkingDoc = doc(this.firestore, `parkings/${id}`);
-    return docData(parkingDoc, { idField: 'id' });
+  getParkingById(id: string): Observable<Parking> {
+    const parkingDoc = doc(this.firestore, `${this.collectionName}/${id}`);
+    return docData(parkingDoc, { idField: 'id' }) as Observable<Parking>;
+  }
+
+  async addParking(parking: Parking): Promise<void> {
+    const parkingCollection = collection(this.firestore, this.collectionName);
+    await addDoc(parkingCollection, parking);
+  }
+
+  async updateParking(id: string, data: Partial<Parking>): Promise<void> {
+    const parkingDoc = doc(this.firestore, `${this.collectionName}/${id}`);
+    await updateDoc(parkingDoc, data);
+  }
+
+  async deleteParking(id: string): Promise<void> {
+    const parkingDoc = doc(this.firestore, `${this.collectionName}/${id}`);
+    await deleteDoc(parkingDoc);
   }
 }
