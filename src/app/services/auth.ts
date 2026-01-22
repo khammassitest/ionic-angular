@@ -37,6 +37,7 @@ export class AuthService {
           role,
           name,
           phone,
+          password,
           createdAt: new Date()
         });
 
