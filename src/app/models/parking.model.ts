@@ -1,7 +1,12 @@
 export interface Parking {
-  id: string;
-  name: string;
-  location: string;
-  totalSpots: number;
-  availableSpots: number;
+  id?: string;
+  nom: string;
+  description: string;
+  prix: number;
+  places: number;
+  codePostal: number;
+  ville: string;
+  dateOpen: string;
+  dateClose: string;
+  statut: string;
 }

@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Observable } from 'rxjs';
-import { Parking, ParkingService } from '../../services/parking'; 
+import { ParkingService } from '../../services/parking'; 
 import { 
   IonHeader, IonToolbar, IonButtons, IonBackButton, IonTitle, IonContent,
   IonGrid, IonRow, IonCol, IonButton, IonIcon, IonFab, IonFabButton,
@@ -13,6 +13,7 @@ import {
   add, locationSharp, trashOutline, createOutline, 
   cashOutline, timeOutline, checkmarkCircle, alertCircle, locationOutline 
 } from 'ionicons/icons';
+import { Parking } from 'src/app/models/parking.model';
 
 @Component({
   selector: 'app-manage-parking',

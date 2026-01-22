@@ -1,19 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Firestore, collection, collectionData, doc, docData, addDoc, updateDoc, deleteDoc } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
+import { Parking } from '../models/parking.model';
 
-export interface Parking {
-  id?: string;
-  nom: string;
-  description: string;
-  prix: number;
-  places: number;
-  codePostal: number;
-  ville: string;
-  dateOpen: string;
-  dateClose: string;
-  statut: string;
-}
 
 @Injectable({
   providedIn: 'root'
