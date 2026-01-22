@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Observable } from 'rxjs';
-import { ParkingService } from '../../services/parking'; 
+import { ParkingService } from '../../services/parkingService'; 
 import { 
   IonHeader, IonToolbar, IonButtons, IonBackButton, IonTitle, IonContent,
   IonGrid, IonRow, IonCol, IonButton, IonIcon, IonFab, IonFabButton,
