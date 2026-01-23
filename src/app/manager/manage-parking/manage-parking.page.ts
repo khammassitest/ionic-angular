@@ -1,19 +1,24 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Observable } from 'rxjs';
-import { ParkingService } from '../../services/parkingService'; 
-import { 
+
+import { ParkingService } from '../../services/parkingService';
+import { Parking } from 'src/app/models/parking.model';
+
+import {
   IonHeader, IonToolbar, IonButtons, IonBackButton, IonTitle, IonContent,
   IonGrid, IonRow, IonCol, IonButton, IonIcon, IonFab, IonFabButton,
-  IonSpinner, IonAvatar, IonNote, IonText 
+  IonSpinner, IonAvatar, IonNote, IonText, ModalController
 } from '@ionic/angular/standalone';
 
 import { addIcons } from 'ionicons';
-import { 
-  add, locationSharp, trashOutline, createOutline, 
-  cashOutline, timeOutline, checkmarkCircle, alertCircle, locationOutline 
+import {
+  add, locationSharp, trashOutline, createOutline,
+  cashOutline, timeOutline, checkmarkCircle, alertCircle, locationOutline
 } from 'ionicons/icons';
-import { Parking } from 'src/app/models/parking.model';
+
+/* 👉 Import the modal component */
+import { ParkingFormComponent } from '../parking-form/parking-form.component';
 
 @Component({
   selector: 'app-manage-parking',
@@ -21,29 +26,48 @@ import { Parking } from 'src/app/models/parking.model';
   styleUrls: ['./manage-parking.page.scss'],
   standalone: true,
   imports: [
-    CommonModule, 
+    CommonModule,
     IonHeader, IonToolbar, IonButtons, IonBackButton, IonTitle, IonContent,
     IonGrid, IonRow, IonCol, IonButton, IonIcon, IonFab, IonFabButton,
     IonSpinner, IonAvatar, IonNote, IonText
   ]
 })
-
 export class ManageParkingPage {
+
   private parkingService = inject(ParkingService);
-  parkings$: Observable<Parking[]>;
+  private modalCtrl = inject(ModalController);
+
+  parkings$: Observable<Parking[]> = this.parkingService.getParkings();
 
   constructor() {
     addIcons({
-      locationOutline, locationSharp, cashOutline, timeOutline, 
-      createOutline, trashOutline, add, checkmarkCircle, alertCircle
+      locationOutline,
+      locationSharp,
+      cashOutline,
+      timeOutline,
+      createOutline,
+      trashOutline,
+      add,
+      checkmarkCircle,
+      alertCircle
     });
-    this.parkings$ = this.parkingService.getParkings();
   }
 
-  editParking(id?: string) {
-    console.log('Navigation vers modification:', id || 'Nouveau Parking');
+  /* ✅ ADD + EDIT via modal */
+  async editParking(id?: string) {
+    const modal = await this.modalCtrl.create({
+      component: ParkingFormComponent,
+      componentProps: {
+        parkingId: id
+      },
+      breakpoints: [0, 0.5, 0.9],
+      initialBreakpoint: 0.9
+    });
+
+    await modal.present();
   }
 
+  /* ✅ DELETE */
   async deleteParking(id: string) {
     if (confirm('Voulez-vous vraiment supprimer ce parking ?')) {
       try {

@@ -1,14 +1,21 @@
 import { Injectable } from '@angular/core';
-import { Firestore, collection, collectionData, doc, docData, addDoc, updateDoc, deleteDoc } from '@angular/fire/firestore';
+import { 
+  Firestore, 
+  collection, 
+  collectionData, 
+  doc, 
+  docData, 
+  setDoc, 
+  updateDoc, 
+  deleteDoc 
+} from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { Parking } from '../models/parking.model';
-
 
 @Injectable({
   providedIn: 'root'
 })
 export class ParkingService {
-
   private collectionName = 'parkings';
 
   constructor(private firestore: Firestore) {}
@@ -25,7 +32,14 @@ export class ParkingService {
 
   async addParking(parking: Parking): Promise<void> {
     const parkingCollection = collection(this.firestore, this.collectionName);
-    await addDoc(parkingCollection, parking);
+    const newDocRef = doc(parkingCollection); 
+    
+    const dataWithId = { 
+      ...parking, 
+      id: newDocRef.id 
+    };
+
+    await setDoc(newDocRef, dataWithId);
   }
 
   async updateParking(id: string, data: Partial<Parking>): Promise<void> {

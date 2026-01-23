@@ -1,0 +1,111 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-button (click)="close()">Annuler</ion-button>
+    </ion-buttons>
+    <ion-title>{{ isEdit ? 'Modifier' : 'Nouveau' }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="submit()" [disabled]="form.invalid">
+        <b>{{ isEdit ? 'Modifier' : 'Ajouter' }}</b>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form [formGroup]="form">
+    <div class="form-container">
+      
+      <div class="card">
+        <ion-input
+          label="Nom du parking"
+          label-placement="stacked"
+          fill="outline"
+          formControlName="nom"
+          class="custom-input">
+        </ion-input>
+
+        <ion-textarea
+          label="Description"
+          label-placement="stacked"
+          fill="outline"
+          formControlName="description"
+          placeholder="Détails sur l'accès, sécurité, etc."
+          [autoGrow]="true"
+          class="custom-input">
+        </ion-textarea>
+
+        <ion-input
+          label="Ville"
+          label-placement="stacked"
+          fill="outline"
+          formControlName="ville"
+          class="custom-input">
+        </ion-input>
+
+        <div class="row">
+          <ion-input
+            label="CP"
+            label-placement="stacked"
+            fill="outline"
+            type="number"
+            formControlName="codePostal"
+            class="custom-input">
+          </ion-input>
+          
+          <ion-input
+            label="Places"
+            label-placement="stacked"
+            fill="outline"
+            type="number"
+            formControlName="places"
+            class="custom-input">
+          </ion-input>
+        </div>
+
+        <ion-input
+          label="Prix (DT/h)"
+          label-placement="stacked"
+          fill="outline"
+          type="number"
+          formControlName="prix"
+          class="custom-input">
+        </ion-input>
+      </div>
+
+      <div class="card time-card">
+        <div class="time-item">
+          <ion-label>Ouverture</ion-label>
+          <ion-datetime-button datetime="openTime"></ion-datetime-button>
+        </div>
+        <div class="time-item">
+          <ion-label>Fermeture</ion-label>
+          <ion-datetime-button datetime="closeTime"></ion-datetime-button>
+        </div>
+      </div>
+
+    </div>
+
+    <ion-modal [keepContentsMounted]="true">
+      <ng-template>
+        <ion-datetime id="openTime" presentation="time" formControlName="dateOpen"></ion-datetime>
+      </ng-template>
+    </ion-modal>
+
+    <ion-modal [keepContentsMounted]="true">
+      <ng-template>
+        <ion-datetime id="closeTime" presentation="time" formControlName="dateClose"></ion-datetime>
+      </ng-template>
+    </ion-modal>
+  </form>
+</ion-content>
+
+<ion-footer class="ion-no-border ion-padding">
+  <ion-button
+    expand="block"
+    (click)="submit()"
+    [disabled]="form.invalid"
+    style="--border-radius: 12px; height: 50px;">
+    {{ isEdit ? 'Enregistrer les modifications' : 'Ajouter le parking' }}
+  </ion-button>
+</ion-footer>
