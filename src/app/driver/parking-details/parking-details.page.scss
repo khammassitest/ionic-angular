@@ -4,3 +4,9 @@
   background: #ccc url('https://placehold.co/600x400?text=Parking') center/cover;
 }
 h1 { font-weight: bold; }
+
+.parking-detail-image {
+  height: 220px;
+  object-fit: cover;
+  border-radius: 12px 12px 0 0;
+}
