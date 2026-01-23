@@ -3,10 +3,9 @@ export interface Parking {
   nom: string;
   description: string;
   prix: number;
-  places: number;
+  places: number;        
   codePostal: number;
   ville: string;
   dateOpen: string;
   dateClose: string;
-  statut: string;
 }

@@ -4,3 +4,9 @@ ion-card {
   border-radius: 12px;
   cursor: pointer;
 }
+
+.parking-list-image {
+  height: 160px;
+  object-fit: cover;
+  border-radius: 12px 12px 0 0;
+}
