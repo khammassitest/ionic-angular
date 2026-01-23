@@ -1,99 +1,66 @@
 .manage-bg {
-  --background: #f9fafb;
+  --background: #f8f9fa;
 }
 
 .admin-wrapper {
-  max-width: 1100px;
+  max-width: 600px;
   margin: 0 auto;
 
-  .table-header {
-    background: #f1f5f9;
-    border-radius: 12px 12px 0 0;
-    color: #475569;
-    font-size: 0.85rem;
-    font-weight: 600;
-    padding: 12px 16px;
-    margin-bottom: 4px;
-  }
-
-  .table-row {
+  .parking-slim-card {
     background: #ffffff;
-    border-bottom: 1px solid #f1f5f9;
-    padding: 12px 16px;
-    transition: background 0.2s ease;
+    border-radius: 12px;
+    margin-bottom: 8px;
+    border: 1px solid #edf2f7;
 
-    &:hover {
-      background: #f8fafc;
+    .card-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 6px 12px; // Very slim
     }
 
-    .parking-cell {
+    .left-section {
       display: flex;
       align-items: center;
       gap: 12px;
 
-      ion-avatar {
-        width: 40px;
-        height: 40px;
+      .slim-avatar {
+        width: 32px;
+        height: 32px;
       }
 
-      .text-group {
-        display: flex;
-        flex-direction: column;
-        .name {
-          font-weight: 700;
-          color: #1e293b;
-          font-size: 1rem;
-        }
+      .parking-name {
+        font-weight: 600;
+        font-size: 0.9rem;
+        color: #2d3748;
       }
     }
 
-    .status-pill {
-      display: inline-flex;
+    .right-section {
+      display: flex;
       align-items: center;
-      gap: 6px;
-      padding: 6px 14px; // More padding for a better badge look
-      border-radius: 50px; // Makes it fully rounded like a pill
-      font-size: 0.8rem;
-      font-weight: 700;
-      width: fit-content;
-      text-transform: uppercase; // Optional: looks more "admin"
+      gap: 4px;
 
-      ion-icon {
-        font-size: 1rem;
-      }
-
-      /* Style for Available - Green background and Green text */
-      &.available {
-        background-color: rgba(45, 211, 111, 0.15); 
-        color: #2dd36f;
+      .status-pill {
+        padding: 4px 8px;
+        border-radius: 6px;
+        font-size: 0.7rem;
+        font-weight: 700;
         
-        ion-icon {
-          color: #2dd36f;
-        }
+        &.available { background: #e6fffa; color: #38b2ac; }
+        &.full { background: #fff5f5; color: #e53e3e; }
       }
-
-      /* Style for Full - Red background and Red text */
-      &.full {
-        background-color: rgba(235, 68, 90, 0.15);
-        color: #eb445a;
-
-        ion-icon {
-          color: #eb445a;
-        }
-      }
-    }
-
-    ion-button {
-      --padding-start: 4px;
-      --padding-end: 4px;
-      margin: 0;
-      font-weight: 600;
-      font-size: 0.8rem;
     }
   }
+}
 
-  .empty-state {
-    margin-top: 60px;
-    ion-icon { font-size: 3.5rem; color: #cbd5e1; }
+// Style the popover list to be tight
+ion-list {
+  padding: 0;
+  ion-item {
+    --padding-start: 12px;
+    --min-height: 44px;
+    font-size: 0.9rem;
+    ion-icon { font-size: 1.2rem; }
   }
 }

@@ -7,7 +7,6 @@ import {
   IonDatetimeButton, IonModal, IonLabel 
 } from '@ionic/angular/standalone';
 import { ParkingService } from '../../services/parkingService';
-import { Parking } from '../../models/parking.model';
 
 @Component({
   selector: 'app-parking-form-modal',
@@ -30,49 +29,67 @@ export class ParkingFormComponent implements OnInit {
   isEdit = false;
 
   form = this.fb.group({
-    nom: ['Parking Test', [Validators.required]],
-    description: ['Description du parking'],
-    ville: ['Tunis', Validators.required],
-    codePostal: [2000, Validators.required],
-    prix: [1, Validators.required],
-    places: [10, [Validators.required, Validators.min(1)]],
-    dateOpen: ['08:00', Validators.required],
-    dateClose: ['22:00', Validators.required]
+    nom: ['', [Validators.required]],
+    description: [''],
+    ville: ['', [Validators.required]],
+    codePostal: [null as any, [Validators.required]],
+    prix: [null as any, [Validators.required]],
+    places: [null as any, [Validators.required]],
+    dateOpen: ['08:00', [Validators.required]],
+    dateClose: ['22:00', [Validators.required]]
   });
 
   ngOnInit() {
     if (this.parkingId) {
       this.isEdit = true;
       this.parkingService.getParkingById(this.parkingId).subscribe((parking) => {
-        if (parking) this.form.patchValue(parking);
+        if (parking) {
+          this.form.patchValue({
+            nom: parking.nom,
+            description: parking.description,
+            ville: parking.ville,
+            codePostal: parking.codePostal,
+            prix: parking.prix,
+            places: parking.places,
+            dateOpen: parking.dateOpen,
+            dateClose: parking.dateClose
+          });
+        }
       });
     }
   }
 
   async submit() {
-    if (this.form.invalid) return;
+    if (this.form.invalid) {
+      Object.keys(this.form.controls).forEach(key => {
+        const controlErrors = this.form.get(key)?.errors;
+        if (controlErrors) console.log('Key:', key, 'Errors:', controlErrors);
+      });
+      return;
+    }
 
     const formValue = this.form.getRawValue();
-    const data: Parking = {
-      nom: formValue.nom!,
+    const data: any = {
+      nom: formValue.nom,
       description: formValue.description || '',
-      ville: formValue.ville!,
+      ville: formValue.ville,
       codePostal: Number(formValue.codePostal),
       prix: Number(formValue.prix),
       places: Number(formValue.places),
-      dateOpen: formValue.dateOpen!,
-      dateClose: formValue.dateClose!
+      dateOpen: formValue.dateOpen,
+      dateClose: formValue.dateClose
     };
     
     try {
       if (this.isEdit && this.parkingId) {
+        data.id = this.parkingId;
         await this.parkingService.updateParking(this.parkingId, data);
       } else {
         await this.parkingService.addParking(data);
       }
       this.modalCtrl.dismiss();
     } catch (error) {
-      console.error('Error:', error);
+      console.error('Error saving:', error);
     }
   }
 
