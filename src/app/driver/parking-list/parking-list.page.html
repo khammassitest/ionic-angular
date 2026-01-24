@@ -1,40 +1,51 @@
-<ion-header>
+<ion-header class="ion-no-border">
   <ion-toolbar color="primary">
-    <ion-title>Liste des Parkings</ion-title>
-
+    <ion-title>Parkings disponibles</ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="openProfile()">
-        <ion-icon slot="icon-only" name="person-circle-outline"></ion-icon>
+        <ion-icon slot="icon-only" name="person-circle"></ion-icon>
       </ion-button>
-      
       <ion-button (click)="logout()">
         <ion-icon slot="icon-only" name="log-out-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
-    
   </ion-toolbar>
 </ion-header>
 
 <ion-content color="light">
-  <div class="container">
-    <ion-card
-      *ngFor="let p of parkings$ | async"
-      [routerLink]="['/parking-details', p.id]">
+  <div class="parking-container">
+    <ion-card *ngFor="let p of parkings$ | async" [routerLink]="['/parking-details', p.id]" class="parking-card">
+      
+      <div class="status-badge">Ouvert</div>
 
-      <ion-img
-        src="assets/images/parking2.jpg"
-        class="parking-list-image">
-      </ion-img>
+      <div class="image-wrapper">
+        <img src="assets/images/parking2.jpg" alt="parking" />
+        <div class="price-tag">{{ p.prix }} DT<span>/h</span></div>
+      </div>
 
       <ion-card-header>
-        <ion-card-title>{{ p.nom }}</ion-card-title>
-        <ion-card-subtitle>{{ p.adresse }}</ion-card-subtitle>
+        <div class="header-flex">
+          <ion-card-title>{{ p.nom }}</ion-card-title>
+          <div class="capacity">
+             <ion-icon name="car-sport"></ion-icon>
+             <span>{{ p.places }} places</span>
+          </div>
+        </div>
+        <ion-card-subtitle>
+          <ion-icon name="location-outline"></ion-icon> {{ p.adresse }}
+        </ion-card-subtitle>
       </ion-card-header>
 
       <ion-card-content>
-        <ion-text color="success">
-          <b>{{ p.prix }} DT / Heure</b>
-        </ion-text>
+        <div class="info-footer">
+          <div class="time-info">
+            <ion-icon name="time-outline"></ion-icon>
+            <span>{{ p.dateOpen }} — {{ p.dateClose }}</span>
+          </div>
+          <ion-button fill="clear" size="small" class="detail-btn">
+            Voir détails <ion-icon name="arrow-forward"></ion-icon>
+          </ion-button>
+        </div>
       </ion-card-content>
     </ion-card>
   </div>
