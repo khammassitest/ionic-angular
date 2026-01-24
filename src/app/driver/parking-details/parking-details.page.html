@@ -10,7 +10,6 @@
 <ion-content *ngIf="parking$ | async as p">
   <ion-card>
 
-    <!-- Image du parking -->
     <ion-img
       src="assets/images/parking2.jpg"
       class="parking-detail-image">
@@ -24,7 +23,6 @@
       <p>{{ p.description }}</p>
       <p>🅿️ Places disponibles : <b>{{ p.places }}</b></p>
 
-      <!-- Réserver -->
       <ion-button
         expand="block"
         color="success"
@@ -33,7 +31,6 @@
         🚗 Réserver
       </ion-button>
 
-      <!-- Quitter -->
       <ion-button
         expand="block"
         color="danger"

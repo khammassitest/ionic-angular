@@ -10,7 +10,6 @@
 <ion-content class="profile-bg">
   <div class="profile-container" *ngIf="user$ | async as user; else loading">
 
-    <!-- Avatar with icon fallback -->
     <ion-avatar class="profile-avatar">
       <ng-container *ngIf="user.photoURL; else defaultIcon">
         <img [src]="user.photoURL" />
