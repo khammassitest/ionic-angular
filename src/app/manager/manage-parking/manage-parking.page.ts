@@ -4,8 +4,8 @@ import { Observable } from 'rxjs';
 import { 
   IonHeader, IonToolbar, IonButtons, IonBackButton, IonTitle, IonContent, 
   IonButton, IonIcon, IonFab, IonFabButton, IonSpinner, IonAvatar, 
-  IonPopover, IonList, IonItem, IonLabel, ModalController 
-} from '@ionic/angular/standalone'; // Make sure they are imported from here
+  IonPopover, IonList, IonItem, IonLabel, ModalController, AlertController
+} from '@ionic/angular/standalone'; 
 import { addIcons } from 'ionicons';
 import { 
   add, ellipsisVertical, createOutline, trashOutline, locationOutline 
@@ -34,16 +34,16 @@ import { ParkingFormComponent } from '../parking-form/parking-form.component';
     IonFabButton, 
     IonSpinner, 
     IonAvatar, 
-    // These were likely missing in your imports array:
     IonPopover, 
     IonList, 
     IonItem, 
     IonLabel
-  ]
+    ]
 })
 export class ManageParkingPage {
   private parkingService = inject(ParkingService);
   private modalCtrl = inject(ModalController);
+  private alertCtrl = inject(AlertController);
 
   parkings$: Observable<Parking[]> = this.parkingService.getParkings();
 
@@ -62,8 +62,24 @@ export class ManageParkingPage {
   }
 
   async deleteParking(id: string) {
-    if (confirm('Voulez-vous vraiment supprimer ce parking ?')) {
-      await this.parkingService.deleteParking(id);
-    }
+    const alert = await this.alertCtrl.create({
+      header: 'Confirmation',
+      message: 'Voulez-vous vraiment supprimer ce parking ?',
+      buttons: [
+        {
+          text: 'Annuler',
+          role: 'cancel'
+        },
+        {
+          text: 'Supprimer',
+          role: 'destructive',
+          handler: async () => {
+            await this.parkingService.deleteParking(id);
+          }
+        }
+      ]
+    });
+    await alert.present();
   }
+
 }
