@@ -3,6 +3,10 @@
     <ion-title>Liste des Parkings</ion-title>
 
     <ion-buttons slot="end">
+      <ion-button (click)="openProfile()">
+        <ion-icon slot="icon-only" name="person-circle-outline"></ion-icon>
+      </ion-button>
+      
       <ion-button (click)="logout()">
         <ion-icon slot="icon-only" name="log-out-outline"></ion-icon>
       </ion-button>

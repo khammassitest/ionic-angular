@@ -6,7 +6,7 @@ import { Firestore, collection, collectionData } from '@angular/fire/firestore';
 import { Auth, signOut } from '@angular/fire/auth';
 import { Observable } from 'rxjs';
 import { addIcons } from 'ionicons';
-import { logOutOutline } from 'ionicons/icons';
+import { logOutOutline , personCircleOutline} from 'ionicons/icons';
 
 @Component({
   selector: 'app-parking-list',
@@ -23,7 +23,7 @@ export class ParkingListPage implements OnInit {
   parkings$: Observable<any[]> | undefined;
 
   constructor() {
-    addIcons({ logOutOutline }); 
+    addIcons({ logOutOutline, personCircleOutline }); 
   }
 
   ngOnInit() {
@@ -38,4 +38,9 @@ export class ParkingListPage implements OnInit {
       console.error('Erreur lors de la déconnexion:', error);
     }
   }
+
+  async openProfile() {
+    this.router.navigate(['/profile']);
+  }
+
 }

@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { ProfileComponent } from './auth/profile/profile.component';
 
 export const routes: Routes = [
   {
@@ -34,9 +35,9 @@ export const routes: Routes = [
     path: 'manage-parking',
     loadComponent: () => import('./manager/manage-parking/manage-parking.page').then(m => m.ManageParkingPage)
   },
-  // {
-  //   path: 'manage-spots',
-  //   loadComponent: () => import('./manager/manage-spots/manage-spots.page').then(m => m.ManageSpotsPage)
-  // }
+  {
+    path: 'profile',
+    component: ProfileComponent
+  }
 
 ];

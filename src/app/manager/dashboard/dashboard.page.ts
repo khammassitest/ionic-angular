@@ -36,7 +36,7 @@ export class DashboardPage implements OnInit {
     this.router.navigate(['/manage-parking']);
   }
 
-  goToManageSpots() {
-    this.router.navigate(['/manage-spots']);
+  goEditProfile() {
+    this.router.navigate(['/profile']);
   }
 }

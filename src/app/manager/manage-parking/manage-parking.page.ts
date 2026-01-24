@@ -8,12 +8,13 @@ import {
 } from '@ionic/angular/standalone'; 
 import { addIcons } from 'ionicons';
 import { 
-  add, ellipsisVertical, createOutline, trashOutline, locationOutline 
+  add, ellipsisVertical, createOutline, trashOutline, locationOutline, personCircleOutline 
 } from 'ionicons/icons';
 
 import { ParkingService } from '../../services/parkingService';
 import { Parking } from 'src/app/models/parking.model';
 import { ParkingFormComponent } from '../parking-form/parking-form.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-manage-parking',
@@ -38,17 +39,25 @@ import { ParkingFormComponent } from '../parking-form/parking-form.component';
     IonList, 
     IonItem, 
     IonLabel
-    ]
+  ]
 })
 export class ManageParkingPage {
   private parkingService = inject(ParkingService);
   private modalCtrl = inject(ModalController);
   private alertCtrl = inject(AlertController);
+  private router = inject(Router);
 
   parkings$: Observable<Parking[]> = this.parkingService.getParkings();
 
   constructor() {
-    addIcons({ add, ellipsisVertical, createOutline, trashOutline, locationOutline });
+    addIcons({
+      personCircleOutline,
+      ellipsisVertical,
+      createOutline,
+      trashOutline,
+      add,
+      locationOutline
+    });
   }
 
   async editParking(id?: string) {
@@ -66,12 +75,9 @@ export class ManageParkingPage {
       header: 'Confirmation',
       message: 'Voulez-vous vraiment supprimer ce parking ?',
       buttons: [
-        {
-          text: 'Annuler',
-          role: 'cancel'
-        },
-        {
-          text: 'Supprimer',
+        { text: 'Annuler', role: 'cancel' },
+        { 
+          text: 'Supprimer', 
           role: 'destructive',
           handler: async () => {
             await this.parkingService.deleteParking(id);
@@ -82,4 +88,7 @@ export class ManageParkingPage {
     await alert.present();
   }
 
+  openProfile() {
+    this.router.navigate(['/profile']);
+  }
 }
