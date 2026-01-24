@@ -6,6 +6,7 @@ describe('RegisterPage', () => {
   let fixture: ComponentFixture<RegisterPage>;
 
   beforeEach(() => {
+    
     fixture = TestBed.createComponent(RegisterPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
