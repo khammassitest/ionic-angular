@@ -1,12 +1,26 @@
-.header-img {
-  width: 100%;
-  height: 150px;
-  background: #ccc url('https://placehold.co/600x400?text=Parking') center/cover;
+.parking-detail-card {
+  border-radius: 14px;
+  overflow: hidden;
 }
-h1 { font-weight: bold; }
 
 .parking-detail-image {
   height: 220px;
   object-fit: cover;
   border-radius: 12px 12px 0 0;
+}
+
+.description {
+  font-size: 15px;
+  color: #555;
+  margin-bottom: 16px;
+}
+
+ion-card-title {
+  font-weight: bold;
+  font-size: 20px;
+}
+
+ion-card-subtitle {
+  font-size: 14px;
+  color: #666;
 }

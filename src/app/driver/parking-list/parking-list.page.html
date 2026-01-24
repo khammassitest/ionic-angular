@@ -13,30 +13,47 @@
 </ion-header>
 
 <ion-content color="light">
-  <div class="parking-container">
-    <ion-card *ngFor="let p of parkings$ | async" [routerLink]="['/parking-details', p.id]" class="parking-card">
-      
+
+  <div class="parking-container"
+       *ngIf="(parkings$ | async) as parkings">
+
+    <ion-card
+      *ngFor="let p of parkings"
+      [routerLink]="['/parking-details', p.id]"
+      class="parking-card">
+
+      <!-- Statut -->
       <div class="status-badge">Ouvert</div>
 
+      <!-- Image -->
       <div class="image-wrapper">
         <img src="assets/images/parking2.jpg" alt="parking" />
-        <div class="price-tag">{{ p.prix }} DT<span>/h</span></div>
+        <div class="price-tag">
+          {{ p.prix }} DT<span>/h</span>
+        </div>
       </div>
 
+      <!-- Infos -->
       <ion-card-header>
         <div class="header-flex">
-          <ion-card-title>{{ p.nom }} - {{ p.ville }}</ion-card-title>
+          <ion-card-title>
+            {{ p.nom }} - {{ p.ville }}
+          </ion-card-title>
+
           <div class="capacity">
-            <ion-icon name="car-sport"></ion-icon>
+            <ion-icon name="car-sport-outline"></ion-icon>
             <span>{{ p.places }} places</span>
           </div>
         </div>
 
         <ion-card-subtitle>
-          <ion-icon name="time-outline"></ion-icon> {{ p.dateOpen }} — {{ p.dateClose }}
+          <ion-icon name="time-outline"></ion-icon>
+          {{ p.dateOpen }} — {{ p.dateClose }}
         </ion-card-subtitle>
       </ion-card-header>
 
     </ion-card>
+
   </div>
+
 </ion-content>

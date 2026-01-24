@@ -1,14 +1,15 @@
-<ion-header>
-  <ion-toolbar>
+<ion-header class="ion-no-border">
+  <ion-toolbar color="primary">
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/parking-list"></ion-back-button>
     </ion-buttons>
-
     <ion-title>Détails du Parking</ion-title>
   </ion-toolbar>
 </ion-header>
-<ion-content *ngIf="parking$ | async as p">
-  <ion-card>
+
+<ion-content *ngIf="parking$ | async as p" color="light">
+
+  <ion-card class="parking-detail-card">
 
     <!-- Image du parking -->
     <ion-img
@@ -16,33 +17,64 @@
       class="parking-detail-image">
     </ion-img>
 
+    <!-- Titre et localisation -->
     <ion-card-header>
       <ion-card-title>{{ p.nom }}</ion-card-title>
+      <ion-card-subtitle>
+        📍 {{ p.ville }} – {{ p.codePostal }}
+      </ion-card-subtitle>
     </ion-card-header>
 
     <ion-card-content>
-      <p>{{ p.description }}</p>
-      <p>🅿️ Places disponibles : <b>{{ p.places }}</b></p>
 
-      <!-- Réserver -->
+      <!-- Description -->
+      <p class="description">
+        {{ p.description }}
+      </p>
+
+      <!-- Infos clés -->
+      <ion-list lines="none">
+
+        <ion-item>
+          <ion-icon name="car-outline" slot="start"></ion-icon>
+          <ion-label>Places disponibles</ion-label>
+          <ion-badge slot="end" color="success">{{ p.places }}</ion-badge>
+        </ion-item>
+
+        <ion-item>
+          <ion-icon name="cash-outline" slot="start"></ion-icon>
+          <ion-label>Prix / heure</ion-label>
+          <ion-note slot="end">{{ p.prix }} DT</ion-note>
+        </ion-item>
+
+        <ion-item>
+          <ion-icon name="time-outline" slot="start"></ion-icon>
+          <ion-label>Horaires</ion-label>
+          <ion-note slot="end">{{ p.dateOpen }} → {{ p.dateClose }}</ion-note>
+        </ion-item>
+
+      </ion-list>
+
+      <!-- Actions -->
       <ion-button
         expand="block"
         color="success"
         (click)="reserver()"
         [disabled]="hasActiveReservation || p.places <= 0 || isProcessing">
-        🚗 Réserver
+        Réserver
       </ion-button>
 
-      <!-- Quitter -->
       <ion-button
         expand="block"
         color="danger"
+        fill="outline"
         *ngIf="hasActiveReservation"
         [disabled]="isProcessing"
         (click)="quitter()">
-        🚪 Quitter le parking
+         Quitter le parking
       </ion-button>
 
     </ion-card-content>
   </ion-card>
+
 </ion-content>
