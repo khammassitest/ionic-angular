@@ -25,28 +25,18 @@
 
       <ion-card-header>
         <div class="header-flex">
-          <ion-card-title>{{ p.nom }}</ion-card-title>
+          <ion-card-title>{{ p.nom }} - {{ p.ville }}</ion-card-title>
           <div class="capacity">
-             <ion-icon name="car-sport"></ion-icon>
-             <span>{{ p.places }} places</span>
+            <ion-icon name="car-sport"></ion-icon>
+            <span>{{ p.places }} places</span>
           </div>
         </div>
+
         <ion-card-subtitle>
-          <ion-icon name="location-outline"></ion-icon> {{ p.adresse }}
+          <ion-icon name="time-outline"></ion-icon> {{ p.dateOpen }} — {{ p.dateClose }}
         </ion-card-subtitle>
       </ion-card-header>
 
-      <ion-card-content>
-        <div class="info-footer">
-          <div class="time-info">
-            <ion-icon name="time-outline"></ion-icon>
-            <span>{{ p.dateOpen }} — {{ p.dateClose }}</span>
-          </div>
-          <ion-button fill="clear" size="small" class="detail-btn">
-            Voir détails <ion-icon name="arrow-forward"></ion-icon>
-          </ion-button>
-        </div>
-      </ion-card-content>
     </ion-card>
   </div>
 </ion-content>

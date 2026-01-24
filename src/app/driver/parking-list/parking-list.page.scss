@@ -1,11 +1,11 @@
 .parking-container {
   padding: 12px;
-  max-width: 600px; // Pour un meilleur rendu sur tablette
+  max-width: 600px;
   margin: 0 auto;
 }
 
 .parking-card {
-  margin: 0 0 20px 0;
+  margin-bottom: 20px;
   border-radius: 16px;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
   overflow: hidden;
@@ -13,7 +13,7 @@
   transition: transform 0.2s ease;
 
   &:active {
-    transform: scale(0.98); // Effet de clic
+    transform: scale(0.98);
   }
 }
 
@@ -63,8 +63,8 @@
 .header-flex {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 4px;
+  align-items: center;
+  margin-bottom: 6px;
 
   ion-card-title {
     font-size: 1.2rem;
@@ -78,8 +78,11 @@
     color: var(--ion-color-primary);
     font-size: 0.9rem;
     font-weight: 600;
-    
-    ion-icon { margin-right: 4px; font-size: 1.1rem; }
+
+    ion-icon {
+      margin-right: 4px;
+      font-size: 1.1rem;
+    }
   }
 }
 
@@ -87,26 +90,11 @@ ion-card-subtitle {
   display: flex;
   align-items: center;
   font-size: 0.85rem;
-  ion-icon { margin-right: 4px; }
-}
+  color: #666;
 
-.info-footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-top: 10px;
-  border-top: 1px solid #f0f0f0;
-
-  .time-info {
-    display: flex;
-    align-items: center;
-    color: #666;
-    font-size: 0.85rem;
-    ion-icon { margin-right: 6px; color: var(--ion-color-medium); }
-  }
-
-  .detail-btn {
-    font-weight: 600;
-    --padding-end: 0;
+  ion-icon {
+    margin-right: 4px;
+    font-size: 1rem;
+    color: var(--ion-color-medium);
   }
 }
