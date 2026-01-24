@@ -22,9 +22,13 @@ export class ParkingListPage implements OnInit {
   
   parkings$: Observable<any[]> | undefined;
 
-  constructor() {
-    addIcons({ logOutOutline, personCircleOutline }); 
-  }
+ constructor() {
+  addIcons({
+    'person-circle': personCircleOutline,
+    'log-out-outline': logOutOutline
+  });
+}
+
 
   ngOnInit() {
     const parkingRef = collection(this.firestore, 'parkings');
